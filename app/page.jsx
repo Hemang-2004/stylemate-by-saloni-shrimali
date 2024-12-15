@@ -1,5 +1,6 @@
 // 'use client'
 "use client"; // Add this line at the top
+import Head from "next/head";
 
 import { useState } from 'react'
 import Image from "next/image"
@@ -13,7 +14,7 @@ import { Footer } from "../components/footer"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../components/ui/dialog"
 import { ScrollArea } from "../components/ui/scroll-area"
 
-const metadata = {
+export const metadata = {
   title: "StyleMate - Virtual Wardrobe Assistant",
   description: "Your personal style companion for wardrobe organization and outfit suggestions",
 }
@@ -63,6 +64,14 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#F5F5DC]">
       <NavBar />
+      {/* Page Metadata */}
+      <Head>
+        <title>StyleMate - Virtual Wardrobe Assistant</title>
+        <meta
+          name="description"
+          content="Your personal style companion for wardrobe organization and outfit suggestions"
+        />
+      </Head>
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
         <Image
