@@ -4,14 +4,14 @@
 import { useState } from 'react'
 import Image from "next/image"
 import { Card } from "@/components/ui/card"
-import { NavBar } from "@/components/nav-bar"
-import { AnimatedButton } from "@/components/animated-button"
-import { Testimonials } from "@/components/testimonials"
-import { BlogSection } from "@/components/blog-section"
-import { WriteBlogSection } from "@/components/write-blog-section"
-import { Footer } from "@/components/footer"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { NavBar } from "../components/nav-bar"
+import { AnimatedButton } from "../components/animated-button"
+import { Testimonials } from "../components/testimonials"
+import { BlogSection } from "../components/blog-section"
+import { WriteBlogSection } from "../components/write-blog-section"
+import { Footer } from "../components/footer"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../components/ui/dialog"
+import { ScrollArea } from "../components/ui/scroll-area"
 
 export const metadata = {
   title: "StyleMate - Virtual Wardrobe Assistant",
