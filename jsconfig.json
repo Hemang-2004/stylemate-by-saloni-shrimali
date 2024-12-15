@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",  // Root of the project
+    "paths": {
+      "@/*": ["./*"],  // Base alias for the entire project
+      "@components/*": ["/components/*"],  // Adjust if components are inside 'app/components'
+      "@public/*": ["./public/*"],  // For the public directory
+      "@styles/*": ["./styles/*"],  // For styles
+      "@lib/*": ["app/lib/*"]  // Ensure you have the correct path to 'lib'
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
