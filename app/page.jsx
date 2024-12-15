@@ -13,7 +13,7 @@ import { Footer } from "../components/footer"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../components/ui/dialog"
 import { ScrollArea } from "../components/ui/scroll-area"
 
-export const metadata = {
+const metadata = {
   title: "StyleMate - Virtual Wardrobe Assistant",
   description: "Your personal style companion for wardrobe organization and outfit suggestions",
 }
