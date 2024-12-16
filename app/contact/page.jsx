@@ -2,10 +2,10 @@ import { NavBar } from "../../components/nav-bar";
 import { ContactForm } from "../../components/contact-form"
 import { Footer } from "../../components/footer"
 
-export const metadata = {
-  title: "Contact Us - StyleMate",
-  description: "Get in touch with StyleMate for any queries or support",
-}
+// export const metadata = {
+//   title: "Contact Us - StyleMate",
+//   description: "Get in touch with StyleMate for any queries or support",
+// }
 
 export default function ContactPage() {
   return (

@@ -1,10 +1,10 @@
 // 'use client'
 "use client"; // Add this line at the top
-import Head from "next/head";
+// import Head from "next/head";
 
 import { useState } from 'react'
 import Image from "next/image"
-import { Card } from "@/components/ui/card"
+import { Card } from "../components/ui/card"
 import { NavBar } from "../components/nav-bar"
 import { AnimatedButton } from "../components/animated-button"
 import { Testimonials } from "../components/testimonials"
@@ -13,11 +13,6 @@ import { WriteBlogSection } from "../components/write-blog-section"
 import { Footer } from "../components/footer"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../components/ui/dialog"
 import { ScrollArea } from "../components/ui/scroll-area"
-
-export const metadata = {
-  title: "StyleMate - Virtual Wardrobe Assistant",
-  description: "Your personal style companion for wardrobe organization and outfit suggestions",
-}
 
 const features = [
   {
@@ -64,14 +59,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#F5F5DC]">
       <NavBar />
-      {/* Page Metadata */}
-      <Head>
-        <title>StyleMate - Virtual Wardrobe Assistant</title>
-        <meta
-          name="description"
-          content="Your personal style companion for wardrobe organization and outfit suggestions"
-        />
-      </Head>
+      
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
         <Image
