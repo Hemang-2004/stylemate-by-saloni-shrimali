@@ -1,10 +1,10 @@
-import { NavBar } from "../../components/nav-bar"
+import { MenuBar } from "../../components/MenuBar"
 import { Footer } from "../../components/footer"
 
 export default function AboutPage() {
   return (
     (<div className="min-h-screen bg-gray-50 flex flex-col">
-      <NavBar />
+      <MenuBar />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-8 text-[#2F4F4F]">About Us</h1>

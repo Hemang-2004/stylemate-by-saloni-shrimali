@@ -1,11 +1,8 @@
-// 'use client'
-"use client"; // Add this line at the top
-// import Head from "next/head";
-
-import { useState } from 'react'
+"use client";
+import { useState, useEffect } from 'react'
 import Image from "next/image"
 import { Card } from "../components/ui/card"
-import { NavBar } from "../components/nav-bar"
+import { MenuBar } from "../components/MenuBar"
 import { AnimatedButton } from "../components/animated-button"
 import { Testimonials } from "../components/testimonials"
 import { BlogSection } from "../components/blog-section"
@@ -13,6 +10,7 @@ import { WriteBlogSection } from "../components/write-blog-section"
 import { Footer } from "../components/footer"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../components/ui/dialog"
 import { ScrollArea } from "../components/ui/scroll-area"
+import { CurtainReveal } from "../components/CurtainReveal"
 
 const features = [
   {
@@ -35,7 +33,7 @@ const features = [
   },
   {
     title: "Style Guide",
-    image: "/feature4.png",
+    image: "/feature4.jpg",
     description: "Personal styling advice",
     fullContent: "The Style Guide feature offers personalized fashion advice tailored to your body type, skin tone, and personal preferences. Discover which cuts, styles, and colors work best for you. Get tips on how to dress for different occasions, from casual outings to formal events. Our style guide will help you build confidence in your fashion choices and develop a signature look that's uniquely you."
   },
@@ -53,22 +51,43 @@ const features = [
   }
 ]
 
+const heroImages = [
+  "/image_virtual.jpg",
+  "/image_virtual2.jpg",
+  "/image_virtual3.jpg",
+  "/image_virtual4.jpg"
+];
+
 export default function HomePage() {
   const [selectedFeature, setSelectedFeature] = useState(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#F5F5DC]">
-      <NavBar />
-      
+    (<div className="min-h-screen bg-[#F5F5DC]">
+      <MenuBar />
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
-        <Image
-          src="/image_virtual.jpeg"
-          alt="Organized wardrobe background"
-          width={1920}
-          height={1080}
-          className="absolute inset-0 object-cover w-full h-full"
-          priority />
+      <section
+        className="relative h-screen flex items-center justify-center overflow-hidden">
+        {heroImages.map((src, index) => (
+          <Image
+            key={src}
+            src={src}
+            alt={`Hero image ${index + 1}`}
+            width={1920}
+            height={1080}
+            className={`absolute inset-0 object-cover w-full h-full transition-transform duration-1000 ease-in-out ${
+              index === currentImageIndex ? 'translate-x-0' : 'translate-x-full'
+            }`}
+            priority />
+        ))}
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative container text-center text-white">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
@@ -102,7 +121,8 @@ export default function HomePage() {
                     className="object-cover rounded-lg w-full h-full" />
                 </div>
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+                <div
+                  className="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
                   <h3 className="text-2xl font-semibold mb-3">{feature.title}</h3>
                   <p className="text-lg text-center mb-4">{feature.description}</p>
                   <AnimatedButton variant="secondary" size="sm">
@@ -114,7 +134,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Feature Detail Modal */}
       <Dialog open={!!selectedFeature} onOpenChange={() => setSelectedFeature(null)}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden bg-white text-black">
@@ -123,55 +142,56 @@ export default function HomePage() {
             <DialogDescription>{selectedFeature?.description}</DialogDescription>
           </DialogHeader>
           <ScrollArea className="mt-4 max-h-[calc(80vh-10rem)]">
-            <div className="prose prose-sm max-w-none prose-headings:text-[#2F4F4F] prose-p:text-gray-600 prose-li:text-gray-600">
+            <div
+              className="prose prose-sm max-w-none prose-headings:text-[#2F4F4F] prose-p:text-gray-600 prose-li:text-gray-600">
               <p>{selectedFeature?.fullContent}</p>
             </div>
           </ScrollArea>
         </DialogContent>
       </Dialog>
-
       {/* About Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="container px-4 mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="relative w-full h-[400px] rounded-lg overflow-hidden mb-8">
-              <Image
-                src="/aboutus.png"
-                alt="Organized wardrobe"
-                width={1200}
-                height={200}
-                className="object-cover" />
-            </div>
-            <Card className="p-8 shadow-xl bg-white/90 backdrop-blur-sm">
-              <div className="prose prose-lg max-w-none">
-                <h2 className="text-3xl font-bold mb-8 text-[#2F4F4F]">About Us</h2>
-                <p className="mb-6 text-gray-700">
-                  StyleMate is your ultimate outfit suggestion app, designed to solve the everyday
-                  dilemma of "What do I wear?" and the challenge of organizing your closet. We
-                  understand how overwhelming it can be to manage a cluttered wardrobe and find
-                  the perfect outfit for any occasion.
-                </p>
-                <p className="mb-6 text-gray-700">
-                  Our app helps you save time, embrace sustainable fashion, and elevate your
-                  style with personalized outfit recommendations tailored to your mood, events,
-                  and preferences. From a virtual closet to color coordination tips and wardrobe
-                  decluttering advice, StyleMate is here to simplify your fashion choices and
-                  help you make the most of your wardrobe.
-                </p>
-                <p className="text-xl font-semibold text-[#2F4F4F]">
-                  Join us to redefine your style journey—one outfit at a time!
-                </p>
+      <CurtainReveal>
+        <section className="py-24 bg-gray-50">
+          <div className="container px-4 mx-auto">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="relative w-full h-[400px] rounded-lg overflow-hidden mb-8">
+                <Image
+                  src="/aboutus.png"
+                  alt="Organized wardrobe"
+                  width={1200}
+                  height={200}
+                  className="object-cover" />
               </div>
-            </Card>
+              <Card className="p-8 shadow-xl bg-white/90 backdrop-blur-sm">
+                <div className="prose prose-lg max-w-none">
+                  <h2 className="text-3xl font-bold mb-8 text-[#2F4F4F]">About Us</h2>
+                  <p className="mb-6 text-gray-700">
+                    StyleMate is your ultimate outfit suggestion app, designed to solve the everyday
+                    dilemma of "What do I wear?" and the challenge of organizing your closet. We
+                    understand how overwhelming it can be to manage a cluttered wardrobe and find
+                    the perfect outfit for any occasion.
+                  </p>
+                  <p className="mb-6 text-gray-700">
+                    Our app helps you save time, embrace sustainable fashion, and elevate your
+                    style with personalized outfit recommendations tailored to your mood, events,
+                    and preferences. From a virtual closet to color coordination tips and wardrobe
+                    decluttering advice, StyleMate is here to simplify your fashion choices and
+                    help you make the most of your wardrobe.
+                  </p>
+                  <p className="text-xl font-semibold text-[#2F4F4F]">
+                    Join us to redefine your style journey—one outfit at a time!
+                  </p>
+                </div>
+              </Card>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </CurtainReveal>
       <Testimonials />
       <BlogSection />
       <WriteBlogSection />
       <Footer />
-    </div>
-  )
+    </div>)
+  );
 }
 
-  

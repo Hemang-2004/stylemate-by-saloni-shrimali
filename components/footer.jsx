@@ -24,7 +24,7 @@ export function Footer() {
             <div className="flex space-x-4">
               <a href="#" className="hover:text-gray-300"><Facebook /></a>
               <a href="#" className="hover:text-gray-300"><Twitter /></a>
-              <a href="#" className="hover:text-gray-300"><Instagram /></a>
+              <a href="https://www.instagram.com/style_mate_for_you?igsh=MTgybm94N2pjeTBoNw==" className="hover:text-gray-300"><Instagram /></a>
             </div>
           </div>
         </div>

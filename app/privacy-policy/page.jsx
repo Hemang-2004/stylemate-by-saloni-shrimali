@@ -1,10 +1,10 @@
-import { NavBar } from "../../components/nav-bar"
+import { MenuBar } from "../../components/MenuBar"
 import { Footer } from "../../components/footer"
 
 export default function PrivacyPolicyPage() {
   return (
     (<div className="min-h-screen bg-gray-50 flex flex-col">
-      <NavBar />
+      <MenuBar />
       <main className="flex-grow container mx-auto px-4 py-40">
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
           <h1 className="text-3xl font-bold mb-6 text-[#2F4F4F]">Privacy Policy</h1>
