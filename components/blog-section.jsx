@@ -243,7 +243,7 @@ export function BlogSection() {
   return (
     <section className="py-24 bg-[#E6EFE9]">
       <div className="container">
-        <h2 className="text-4xl font-bold text-center mb-16 text-[#2F4F4F]">Blog</h2>
+        <h2 className="text-4xl font-bold text-center mb-16 text-[#2F4F4F]">Our Selected Blogs</h2>
         <VerticalTimeline items={blogPosts} onItemClick={setSelectedPost} />
         <AnimatePresence>
           {selectedPost && (

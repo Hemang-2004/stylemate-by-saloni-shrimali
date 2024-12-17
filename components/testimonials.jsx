@@ -41,7 +41,7 @@ function MovingGradientBackground() {
 
     let degree = 0
     const animateGradient = () => {
-      degree = (degree + 10) % 360
+      degree = (degree + 7) % 360
       gradientElement.style.background = `
         conic-gradient(
           from ${degree}deg,

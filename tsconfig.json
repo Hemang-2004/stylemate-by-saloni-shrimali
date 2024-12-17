@@ -32,7 +32,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/testimonials.jsx"  ],
+, "components/testimonials.jsx", "app/how-stylemate/page.jsx", "app/blog/page.jsx", "components/write-blog.tsx", "components/ui/textarea.tsx", "components/ui/input.tsx", "components/ui/select.tsx"  ],
   "exclude": [
     "node_modules"
   ]

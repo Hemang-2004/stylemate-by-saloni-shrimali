@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Search, PenTool, Menu, Home, Video, Phone, ChevronDown, Shirt, Palette, Recycle, Trash2, FootprintsIcon } from 'lucide-react'
+import { Search, PenTool, Menu, Home, Video, Phone, ChevronDown, Shirt, Palette, Recycle, Trash2, FootprintsIcon, Users, UserPlus, HelpCircle } from 'lucide-react'
 import { Logo } from "./logo"
 import { Button } from "../src/components/ui/button"
 import { Input } from "../src/components/ui/input"
@@ -76,7 +76,34 @@ export function MenuBar() {
               className="text-[#2F4F4F] hover:text-[#4A7A6F] hover:bg-[#E6EFE9]">
               <Link href="/blog" className="flex items-center">
                 <PenTool className="mr-2 h-4 w-4" />
-                Blog
+                Write and Read Blogs
+              </Link>
+            </Button>
+
+            <Button
+              variant="ghost"
+              className="text-[#2F4F4F] hover:text-[#4A7A6F] hover:bg-[#E6EFE9]">
+              <Link href="/testimonials" className="flex items-center">
+                <Users className="mr-2 h-4 w-4" />
+                Video Testimonial
+              </Link>
+            </Button>
+
+            {/* <Button
+              variant="ghost"
+              className="text-[#2F4F4F] hover:text-[#4A7A6F] hover:bg-[#E6EFE9]">
+              <Link href="/join-club" className="flex items-center">
+                <UserPlus className="mr-2 h-4 w-4" />
+                How StyleMate 
+              </Link>
+            </Button> */}
+
+            <Button
+              variant="ghost"
+              className="text-[#2F4F4F] hover:text-[#4A7A6F] hover:bg-[#E6EFE9]">
+              <Link href="/how-stylemate" className="flex items-center">
+                <HelpCircle className="mr-2 h-4 w-4" />
+                Why&How StyleMate
               </Link>
             </Button>
 
@@ -144,6 +171,24 @@ export function MenuBar() {
                     className="text-[#2F4F4F] hover:text-[#4A7A6F] font-medium text-lg flex items-center">
                     <PenTool className="mr-2 h-4 w-4" />
                     Blog
+                  </Link>
+                  <Link
+                    href="/testimonials"
+                    className="text-[#2F4F4F] hover:text-[#4A7A6F] font-medium text-lg flex items-center">
+                    <Users className="mr-2 h-4 w-4" />
+                    Testimonials
+                  </Link>
+                  <Link
+                    href="/join-club"
+                    className="text-[#2F4F4F] hover:text-[#4A7A6F] font-medium text-lg flex items-center">
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    Join the StyleMate Club
+                  </Link>
+                  <Link
+                    href="/how-stylemate"
+                    className="text-[#2F4F4F] hover:text-[#4A7A6F] font-medium text-lg flex items-center">
+                    <HelpCircle className="mr-2 h-4 w-4" />
+                    How StyleMate
                   </Link>
                   <Link
                     href="/contact"

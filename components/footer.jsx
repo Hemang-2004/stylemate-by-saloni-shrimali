@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Facebook, Twitter, Instagram } from 'lucide-react'
-import ContactPage from "../app/contact/page";
+// import ContactPage from "../app/about/contact/page";
 export function Footer() {
   return (
     (<footer className="bg-[#2F4F4F] text-white py-8">
