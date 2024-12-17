@@ -238,7 +238,7 @@ Smart Outfit Recommendations
 Your virtual closet doesn’t just store your clothes—it helps you style them too. StyleMate’s intelligent recommendation system creates fresh outfit combinations tailored to your preferences, mood, and body type.
 Key benefits:
 • Daily Outfit Suggestions: Receive outfit ideas based on your uploaded wardrobe. Whether it’s for work, casual outings, or special occasions, you’ll always know what to wear.
-• Seasonal Styling: The app suggests outfits suited for the weather and current trends.
+• Seasonal Styling: The website suggests outfits suited for the weather and current trends.
 • Mix & Match: Discover new ways to wear the clothes you already own, maximizing their value and versatility.
 
 Discover New Clothes That Match Your Style
@@ -247,7 +247,7 @@ One of the standout features of the Virtual Walk-In Closet is its ability to sug
 • Match your body type and personal style preferences.
 • Fill any gaps in your wardrobe (like missing essentials or statement pieces).
 This makes shopping smarter, not harder. Instead of impulse buys that don’t pair well with your existing clothes, StyleMate ensures every purchase adds value to your closet.
-• If you have a pair of versatile jeans but lack a matching blazer, the app will suggest stylish options to complete the look.`
+• If you have a pair of versatile jeans but lack a matching blazer, the website will suggest stylish options to complete the look.`
   },
   {
     title: "Outfit Planning",
@@ -395,7 +395,7 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto text-center">
               <div className="relative w-full h-[400px] rounded-lg overflow-hidden mb-8">
                 <Image
-                  src="/aboutus.png"
+                  src="/image.png"
                   alt="Organized wardrobe"
                   width={1200}
                   height={200}
@@ -405,13 +405,13 @@ export default function HomePage() {
                 <div className="prose prose-lg max-w-none">
                   <h2 className="text-3xl font-bold mb-8 text-[#2F4F4F]">About Us</h2>
                   <p className="mb-6 text-gray-700">
-                    StyleMate is your ultimate outfit suggestion app, designed to solve the everyday
+                    StyleMate is your ultimate outfit suggestion website, designed to solve the everyday
                     dilemma of "What do I wear?" and the challenge of organizing your closet. We
                     understand how overwhelming it can be to manage a cluttered wardrobe and find
                     the perfect outfit for any occasion.
                   </p>
                   <p className="mb-6 text-gray-700">
-                    Our app helps you save time, embrace sustainable fashion, and elevate your
+                    Our website helps you save time, embrace sustainable fashion, and elevate your
                     style with personalized outfit recommendations tailored to your mood, events,
                     and preferences. From a virtual closet to color coordination tips and wardrobe
                     decluttering advice, StyleMate is here to simplify your fashion choices and

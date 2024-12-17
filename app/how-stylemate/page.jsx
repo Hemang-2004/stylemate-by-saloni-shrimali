@@ -1,15 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import {MenuBar} from "../../components/MenuBar" // Import the existing MenuBar component
+import { Button } from "../../components/ui/button"
+import { MenuBar } from "../../components/MenuBar"
+import { FoundersMessage } from "../../components/FoundersMessage"
 
 export default function HowStyleMatePage() {
   const [isPlaying, setIsPlaying] = useState(false)
 
   return (
     <div className="min-h-screen bg-[#E6EFE9] pt-16 text-white">
-            <MenuBar />
+      <MenuBar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold text-[#000000] mb-8 text-center">How StyleMate Works</h1>
         
@@ -46,6 +47,11 @@ export default function HowStyleMatePage() {
           <div className="h-16 bg-[#2F4F4F] rounded-b-xl flex items-end justify-center pb-2">
             <div className="w-3/4 h-4 bg-[#4A7A6F] rounded-t-md" />
           </div>
+        </div>
+
+        {/* Founder's Message Section */}
+        <div className="mb-12">
+          <FoundersMessage />
         </div>
         
         {/* How StyleMate Works Steps */}

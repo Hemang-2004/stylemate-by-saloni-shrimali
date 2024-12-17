@@ -26,7 +26,7 @@ const testimonials = [
   {
     name: "Ishita Verma ",
     role: "Style Blogger",
-    content: "The color coordination tips have elevated my outfit game. This app is a game-changer!",
+    content: "The color coordination tips have elevated my outfit game. This website is a game-changer!",
     image: "/placeholder.svg?height=100&width=100"
   }
 ]
