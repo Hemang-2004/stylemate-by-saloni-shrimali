@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react'
+import Link from "next/link";
+
 import Image from "next/image"
 import { Card } from "../components/ui/card"
 import { MenuBar } from "../components/MenuBar"
@@ -320,9 +322,11 @@ export default function HomePage() {
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
             Simplify Your Wardrobe, Redefine Your Style
           </p>
-          <AnimatedButton size="lg" className="text-lg">
-            Get Started
-          </AnimatedButton>
+          <Link href="/dashboard">
+            <AnimatedButton size="lg" className="text-lg">
+              Get Started
+            </AnimatedButton>
+          </Link>
         </div>
       </section>
       {/* Features Grid Section */}

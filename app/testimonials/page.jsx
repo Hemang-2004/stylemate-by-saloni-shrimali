@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+// import {Link} from 'next/Link'
+import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import {MenuBar} from "../../components/MenuBar" // Import the existing MenuBar component
 
@@ -98,11 +100,13 @@ export default function TestimonialsPage() {
         
         {/* Join Us Button */}
         <div className="text-center">
+          <Link href="/dashboard">
           <Button 
             className="bg-[#4A7A6F] text-white hover:bg-[#2F4F4F] transition-colors duration-300 text-lg px-8 py-3 rounded-full"
           >
             Join Us
           </Button>
+          </Link>
         </div>
       </div>
     </div>

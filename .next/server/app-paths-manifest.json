@@ -1,7 +1,10 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/testimonials/page": "app/testimonials/page.js",
-  "/how-stylemate/page": "app/how-stylemate/page.js",
-  "/blog/page": "app/blog/page.js"
+  "/dashboard/ask-me-anything/page": "app/dashboard/ask-me-anything/page.js",
+  "/dashboard/reels/page": "app/dashboard/reels/page.js",
+  "/dashboard/virtual-tryouts/page": "app/dashboard/virtual-tryouts/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/anything-new/page": "app/dashboard/anything-new/page.js"
 }

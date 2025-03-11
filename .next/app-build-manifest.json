@@ -11,25 +11,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/testimonials/page": [
+    "/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/testimonials/page.js"
+      "static/chunks/app/dashboard/page.js"
     ],
-    "/how-stylemate/page": [
+    "/dashboard/ask-me-anything/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/how-stylemate/page.js"
+      "static/chunks/app/dashboard/ask-me-anything/page.js"
     ],
-    "/about/page": [
+    "/dashboard/reels/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/about/page.js"
+      "static/chunks/app/dashboard/reels/page.js"
     ],
-    "/blog/page": [
+    "/dashboard/virtual-tryouts/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/blog/page.js"
+      "static/chunks/app/dashboard/virtual-tryouts/page.js"
+    ],
+    "/dashboard/anything-new/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/anything-new/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
