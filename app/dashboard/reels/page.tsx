@@ -21,13 +21,13 @@ import {
 
 // Featured items that will be randomly shown with reels
 const featuredItems = [
-  { id: 1, name: "White Button-Up Shirt", image: "/placeholder.svg?height=80&width=80&text=Item 1" },
-  { id: 2, name: "Gold Hoop Earrings", image: "/placeholder.svg?height=80&width=80&text=Item 2" },
-  { id: 3, name: "Beige Trench Coat", image: "/placeholder.svg?height=80&width=80&text=Item 3" },
-  { id: 4, name: "Black Slim-Fit Jeans", image: "/placeholder.svg?height=80&width=80&text=Item 4" },
-  { id: 5, name: "Red Silk Blouse", image: "/placeholder.svg?height=80&width=80&text=Item 5" },
-  { id: 6, name: "Navy Blue Blazer", image: "/placeholder.svg?height=80&width=80&text=Item 6" },
-  { id: 7, name: "Khaki Chinos", image: "/placeholder.svg?height=80&width=80&text=Item 7" },
+  { id: 1, name: "White Button-Up Shirt", image: "/t2.jpeg?height=80&width=80&text=Item 1" },
+  { id: 2, name: "Gold Hoop Earrings", image: "/t1.jpeg?height=80&width=80&text=Item 2" },
+  { id: 3, name: "Beige Trench Coat", image: "/t6.jpeg?height=80&width=80&text=Item 3" },
+  { id: 4, name: "Black Slim-Fit Jeans", image: "/t7.jpeg?height=80&width=80&text=Item 4" },
+  { id: 5, name: "Red Silk Blouse", image: "/t3.jpeg?height=80&width=80&text=Item 5" },
+  { id: 6, name: "Navy Blue Blazer", image: "/t4.jpeg?height=80&width=80&text=Item 6" },
+  { id: 7, name: "Khaki Chinos", image: "/t5.jpeg?height=80&width=80&text=Item 7" },
 ]
 
 // Get 2 random items from the featured items array
@@ -42,22 +42,22 @@ const reelCategories = {
     {
       id: 1,
       username: "fashionista_emma",
-      title: "5 Ways to Style a White Shirt",
+      title: "Grwm for a vacation",
       likes: 1243,
       comments: 89,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=White Shirt",
+      thumbnail: "/v1im1.jpg?height=200&width=120&text=White Shirt",
       videoUrl: "/vid1.mp4",
       description:
-        "Discover how to create multiple stylish looks with items you already own. Perfect for refreshing your wardrobe without shopping!",
+        "Discover how to create multiple stylish looks with me",
       featuredItems: getRandomItems(),
     },
     {
       id: 2,
       username: "style_with_james",
-      title: "Capsule Wardrobe Essentials",
+      title: "How to dress rich ",
       likes: 987,
       comments: 56,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Capsule",
+      thumbnail: "/v2im2.jpg?height=200&width=120&text=Capsule",
       videoUrl: "/vid2.mp4",
       description:
         "Build a versatile wardrobe with these timeless pieces that mix and match perfectly for endless outfit combinations.",
@@ -69,7 +69,7 @@ const reelCategories = {
       title: "Summer to Fall Transition Outfits",
       likes: 2156,
       comments: 124,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Transition",
+      thumbnail: "/v3im3.jpg?height=200&width=120&text=Transition",
       videoUrl: "/vid3.mp4",
       description:
         "Learn how to transition your summer favorites into fall with simple layering techniques and accessories.",
@@ -81,8 +81,8 @@ const reelCategories = {
       title: "Thrift Store Transformation",
       likes: 1876,
       comments: 103,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Thrift",
-      videoUrl: "/vid1.mp4", // Using vid1 as fallback
+      thumbnail: "/v4im4.jpg?height=200&width=120&text=Thrift",
+      videoUrl: "/vid4.mp4", // Using vid1 as fallback
       description:
         "Watch me transform thrifted finds into trendy, unique pieces that look designer but cost a fraction of the price.",
       featuredItems: getRandomItems(),
@@ -92,35 +92,35 @@ const reelCategories = {
     {
       id: 5,
       username: "sustainable_sarah",
-      title: "Eco-Friendly Fashion Hacks",
+      title: "Trendy outfits",
       likes: 1532,
       comments: 97,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Eco",
-      videoUrl: "/vid2.mp4", // Using vid2 as fallback
+      thumbnail: "/v5im5.jpg?height=200&width=120&text=Eco",
+      videoUrl: "/vid5.mp4", // Using vid2 as fallback
       description:
-        "Simple ways to make your wardrobe more sustainable while staying on trend with these eco-conscious fashion tips.",
+        "Simple Ways to look elegant on today's trendy outfits.",
       featuredItems: getRandomItems(),
     },
     {
       id: 6,
-      username: "color_coordinator",
-      title: "Color Theory for Your Closet",
+      username: "ABEL MARA",
+      title: "Bold Fashion",
       likes: 1089,
       comments: 72,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Color",
-      videoUrl: "/vid3.mp4", // Using vid3 as fallback
+      thumbnail: "/v6im6.jpg?height=200&width=120&text=Color",
+      videoUrl: "/vid6.mp4", // Using vid3 as fallback
       description:
-        "Understanding color theory will revolutionize how you put outfits together. Learn the basics in this quick guide!",
+        "Understanding how to dress bold ",
       featuredItems: getRandomItems(),
     },
     {
       id: 7,
       username: "accessory_queen",
-      title: "Elevate Any Outfit with Accessories",
+      title: "Style it together",
       likes: 2345,
       comments: 156,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Accessories",
-      videoUrl: "/vid1.mp4", // Using vid1 as fallback
+      thumbnail: "/v7im7.jpg?height=200&width=120&text=Accessories",
+      videoUrl: "/vid7.mp4", // Using vid1 as fallback
       description:
         "The right accessories can transform even the simplest outfit. Check out these styling tricks to elevate your look.",
       featuredItems: getRandomItems(),
@@ -128,11 +128,11 @@ const reelCategories = {
     {
       id: 8,
       username: "pattern_pro",
-      title: "Mixing Patterns Like a Pro",
+      title: "Recreating Pinterest Outfits",
       likes: 1765,
       comments: 118,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Patterns",
-      videoUrl: "/vid2.mp4", // Using vid2 as fallback
+      thumbnail: "/v8im8.jpg?height=200&width=120&text=Patterns",
+      videoUrl: "/vid8.mp4", // Using vid2 as fallback
       description:
         "Don't be afraid to mix patterns! Learn the rules for combining different prints for a bold, fashion-forward look.",
       featuredItems: getRandomItems(),
@@ -142,23 +142,23 @@ const reelCategories = {
     {
       id: 9,
       username: "office_style",
-      title: "Work Wardrobe Essentials",
+      title: "Defining the odds",
       likes: 1876,
       comments: 134,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Work",
-      videoUrl: "/vid3.mp4", // Using vid3 as fallback
+      thumbnail: "/v9im9.jpg?height=200&width=120&text=Work",
+      videoUrl: "/vid9.mp4", // Using vid3 as fallback
       description:
-        "Build a professional wardrobe that's both stylish and appropriate with these essential pieces and outfit formulas.",
+        "Join with me as I break societial rukes",
       featuredItems: getRandomItems(),
     },
     {
       id: 10,
       username: "body_positive_fashion",
-      title: "Dress for Your Body Type",
+      title: "How to turn a basic button down to a cute top",
       likes: 2198,
       comments: 187,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Body Type",
-      videoUrl: "/vid1.mp4", // Using vid1 as fallback
+      thumbnail: "/v10im10.jpg?height=200&width=120&text=Body Type",
+      videoUrl: "/vid10.mp4", // Using vid1 as fallback
       description:
         "Learn how to highlight your best features and create balanced proportions with these body-positive styling tips.",
       featuredItems: getRandomItems(),
@@ -169,8 +169,8 @@ const reelCategories = {
       title: "Luxury Looks on a Budget",
       likes: 3021,
       comments: 215,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Budget",
-      videoUrl: "/vid2.mp4", // Using vid2 as fallback
+      thumbnail: "/v11im11.jpg?height=200&width=120&text=Budget",
+      videoUrl: "/vid11.mp4", // Using vid2 as fallback
       description:
         "You don't need to spend a fortune to look expensive. These budget-friendly styling tricks will elevate your entire wardrobe.",
       featuredItems: getRandomItems(),
@@ -181,8 +181,8 @@ const reelCategories = {
       title: "Winter Layering Guide",
       likes: 1654,
       comments: 92,
-      thumbnail: "/placeholder.svg?height=200&width=120&text=Winter",
-      videoUrl: "/vid3.mp4", // Using vid3 as fallback
+      thumbnail: "/v12im12.jpg?height=200&width=120&text=Winter",
+      videoUrl: "/vid12.mp4", // Using vid3 as fallback
       description:
         "Stay warm without sacrificing style with these clever layering techniques that work for any winter occasion.",
       featuredItems: getRandomItems(),
@@ -194,7 +194,7 @@ export default function ReelsPage() {
   const [activeTab, setActiveTab] = useState("trending")
   const [currentReelIndex, setCurrentReelIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(true) // Default to muted
+  const [isMuted, setIsMuted] = useState(false) // Default to muted
   const [isLoading, setIsLoading] = useState(true)
   const [videoError, setVideoError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)

@@ -34,8 +34,8 @@ export default function DashboardPage() {
   const [time, setTime] = useState<string>("");
   
   const [events, setEvents] = useState<Event[]>([
-    { id: 1, name: "Office Meeting", date: "Today, 2:00 PM", outfit: "Office Chic" },
-    { id: 2, name: "Dinner Party", date: "Tomorrow, 7:30 PM", outfit: "Party Girl" },
+    { id: 1, name: "Office Party", date: "Today, 2:00 PM", outfit: "Office Chic" },
+    { id: 2, name: "Live Session With Fashion Influencers", date: "Tomorrow, 7:30 PM", outfit: "Party Girl" },
     { id: 3, name: "Weekend Getaway", date: "Saturday, All Day", outfit: "Adventure Time" },
   ])
   const [newEvent, setNewEvent] = useState({ name: "", outfit: "" })
