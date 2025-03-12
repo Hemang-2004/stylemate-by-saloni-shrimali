@@ -1,10 +1,7 @@
 "use client"
 
 import type React from "react"
-// import { useRef } from "react";
 import { useState, useRef, useEffect } from "react"
-// import { ScrollArea, ScrollViewport } from "@radix-ui/react-scroll-area";
-
 import Image from "next/image"
 import { TopNav } from "../../../components/top-nav"
 import { Footer } from "../../../components/footer"
@@ -12,7 +9,8 @@ import { Button } from "../../../components/ui/button"
 import { Input } from "../../../components/ui/input"
 import { Card, CardContent } from "../../../components/ui/card"
 import { ScrollArea } from "../../../components/ui/scroll-area"
-import { Send, ThumbsUp, ThumbsDown, Copy, ImageIcon, Sparkles } from "lucide-react"
+import { Send, ThumbsUp, ThumbsDown, Copy, ImageIcon, Sparkles, AlertCircle } from "lucide-react"
+import { Alert, AlertDescription } from "../../../components/ui/alert"
 
 interface Message {
   role: "user" | "assistant"
@@ -31,6 +29,9 @@ const suggestedQuestions = [
   "How to mix patterns?",
 ]
 
+// You'll need to add your Gemini API key here or use environment variables
+const GEMINI_API_KEY = "AIzaSyD5vUNECX12IL5hJliD2A5ehgOKyMUfENY"
+
 export default function AskMeAnythingPage() {
   const [message, setMessage] = useState("")
   const [chatMessages, setChatMessages] = useState<Message[]>([
@@ -40,6 +41,7 @@ export default function AskMeAnythingPage() {
     },
   ])
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
@@ -54,6 +56,8 @@ export default function AskMeAnythingPage() {
   const handleSendMessage = async () => {
     if (!message.trim() && !selectedImage) return
 
+    setError(null)
+
     // Add user message to chat
     const userMessage: Message = {
       role: "user",
@@ -66,62 +70,115 @@ export default function AskMeAnythingPage() {
     setIsLoading(true)
 
     try {
-      // Create a controller to handle stream
-      const controller = new AbortController()
-      const { signal } = controller
+      // Format the conversation history for Gemini API
+      const conversationHistory = chatMessages.map((msg) => ({
+        role: msg.role === "user" ? "user" : "model",
+        parts: [{ text: msg.content }],
+      }))
 
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: [...chatMessages, userMessage].map((msg) => ({
-            role: msg.role,
-            content: msg.content,
-            ...(msg.image && { image: msg.image }),
-          })),
-        }),
-        signal,
+      // Add the new user message
+      // Construct userContent ensuring each part has a text property
+      const userContent: { text?: string; inline_data?: { mime_type: string; data: string } }[] = []
+
+      // If there's a message, add it as text
+      if (message.trim()) {
+        userContent.push({ text: message })
+      }
+
+      // If there's an image, add it with a descriptive text
+      if (selectedImage) {
+        userContent.push({
+          text: "User provided an image for analysis.",
+          inline_data: { mime_type: "image/jpeg", data: selectedImage.split(",")[1] },
+        })
+      }
+
+      // Add the new user message to the conversation history
+      conversationHistory.push({
+        role: "user",
+        parts: userContent,
       })
 
+      // Prepare system prompt to guide response formatting
+      const systemPrompt = {
+        role: "model",
+        parts: [
+          {
+            text: `WHEN EVER YOU WILL GIVE THE ANSWER DONT PUT ANY * or ANY DOUBLE * OR ANYTHING JUST GIVE IT TO ME IN PLAIN PARAGRAPHS AND POINTS You are StyleMate, a fashion and styling assistant. Respond in a conversational, friendly tone. 
+          Format your responses with clear sections, using bullet points for lists and emphasis for important points. 
+          DO NOT use markdown formatting DO NOT PUT ANY * also JUST PLAIN TEXT. Instead, use natural language and conversational style.
+          When giving fashion advice:
+          - Provide specific, actionable tips
+          - Consider the user's context if provided
+          - Organize information in a visually appealing way with short paragraphs
+          - Use friendly, encouraging language
+          - If analyzing an image, be specific about what you see and provide relevant styling advice`,
+          },
+        ],
+      }
+
+      // Add system prompt to the beginning of conversation
+      const fullConversation = [systemPrompt, ...conversationHistory]
+
+      // Direct API call to Gemini
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contents: fullConversation,
+            generationConfig: {
+              temperature: 0.7,
+              topK: 40,
+              topP: 0.95,
+              maxOutputTokens: 1024,
+            },
+            safetySettings: [
+              {
+                category: "HARM_CATEGORY_HARASSMENT",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE",
+              },
+              {
+                category: "HARM_CATEGORY_HATE_SPEECH",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE",
+              },
+              {
+                category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE",
+              },
+              {
+                category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE",
+              },
+            ],
+          }),
+        },
+      )
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        const errorData = await response.json()
+        throw new Error(errorData.error?.message || "Failed to get response from Gemini API")
       }
 
-      // Check if the response is a stream
-      if (response.headers.get("content-type")?.includes("text/plain")) {
-        // Handle streaming response
-        const reader = response.body?.getReader()
-        const decoder = new TextDecoder()
-        let responseText = ""
+      const data = await response.json()
 
-        // Add an empty assistant message that we'll update
-        setChatMessages((prev) => [...prev, { role: "assistant", content: "" }])
+      // Extract the response text from Gemini API
+      const assistantResponse =
+        data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response."
 
-        if (reader) {
-          while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
-
-            const chunk = decoder.decode(value, { stream: true })
-            responseText += chunk
-
-            // Update the last message with the accumulated text
-            setChatMessages((prev) => {
-              const newMessages = [...prev]
-              newMessages[newMessages.length - 1].content = responseText
-              return newMessages
-            })
-          }
-        }
-      } else {
-        // Handle JSON response (likely an error)
-        const data = await response.json()
-        setChatMessages((prev) => [...prev, { role: "assistant", content: data.response }])
-      }
+      setChatMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: assistantResponse,
+        },
+      ])
     } catch (error) {
       console.error("Error:", error)
+      setError(error instanceof Error ? error.message : "An unknown error occurred")
       setChatMessages((prev) => [
         ...prev,
         {
@@ -155,14 +212,31 @@ export default function AskMeAnythingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5DC] flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-[#EFE6DC] via-[#F5E1C8] to-[#EADBC8]">
       <TopNav />
 
       <main className="flex-grow container mx-auto px-4 py-8 mt-16">
-        <h1 className="text-4xl font-bold text-[#2F4F4F] mb-4">Ask Me Anything</h1>
+        <h1 className="text-4xl font-bold text-[#2F4F4F] mb-4">Ask Me Anything !!</h1>
         <p className="text-gray-600 mb-8">
           Get personalized fashion advice, styling tips, and answers to all your style questions.
         </p>
+
+        {!GEMINI_API_KEY && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              Please add your Gemini API key as an environment variable named NEXT_PUBLIC_GEMINI_API_KEY to use this
+              feature.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {error && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Panel - Suggestions */}
@@ -201,8 +275,8 @@ export default function AskMeAnythingPage() {
           {/* Center Panel - Chat */}
           <Card className="lg:col-span-2 order-1 lg:order-2">
             <CardContent className="p-6 flex flex-col h-[600px]">
-            <ScrollArea className="flex-grow mb-4 pr-4">
-            <div className="space-y-4">
+              <ScrollArea className="flex-grow mb-4 pr-4" ref={scrollAreaRef}>
+                <div className="space-y-4">
                   {chatMessages.map((msg, idx) => (
                     <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                       <div className={`max-w-[80%] space-y-2 ${msg.role === "user" ? "items-end" : "items-start"}`}>
@@ -248,8 +322,17 @@ export default function AskMeAnythingPage() {
                   ))}
                   {isLoading && (
                     <div className="flex justify-start">
-                      <div className="bg-[#E6EFE9] text-[#2F4F4F] p-3 rounded-lg rounded-tl-none">
-                        <p className="text-sm">Thinking...</p>
+                      <div className="bg-[#E6EFE9] text-[#2F4F4F] p-4 rounded-lg rounded-tl-none">
+                        <div className="flex items-center">
+                          <div className="clothes-loader">
+                            <div className="hanger"></div>
+                            <div className="dress"></div>
+                            <div className="dot dot-1"></div>
+                            <div className="dot dot-2"></div>
+                            <div className="dot dot-3"></div>
+                          </div>
+                          <p className="ml-3 text-sm font-medium">Styling your answer...</p>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -304,12 +387,12 @@ export default function AskMeAnythingPage() {
                     }
                   }}
                   className="flex-grow"
-                  disabled={isLoading}
+                  disabled={isLoading || !GEMINI_API_KEY}
                 />
                 <Button
                   onClick={handleSendMessage}
                   className="bg-[#4A7A6F] hover:bg-[#2F4F4F]"
-                  disabled={(!message.trim() && !selectedImage) || isLoading}
+                  disabled={(!message.trim() && !selectedImage) || isLoading || !GEMINI_API_KEY}
                 >
                   <Send className="h-4 w-4" />
                 </Button>

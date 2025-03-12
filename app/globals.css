@@ -22,6 +22,99 @@ body {
   }
 }
 
+/* Clothes loader animation */
+.clothes-loader {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.hanger {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 10px;
+  border-radius: 10px 10px 0 0;
+  border: 2px solid #4a7a6f;
+  border-bottom: none;
+}
+
+.hanger:after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background-color: #4a7a6f;
+}
+
+.dress {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 25px;
+  background-color: #9eb3a6;
+  border-radius: 15px 15px 5px 5px;
+  animation: swing 1.5s infinite ease-in-out;
+}
+
+@keyframes swing {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-5deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(5deg);
+  }
+}
+
+.dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #4a7a6f;
+  bottom: 0;
+  opacity: 0;
+}
+
+.dot-1 {
+  left: 10%;
+  animation: dotMove 1.5s infinite 0s;
+}
+
+.dot-2 {
+  left: 50%;
+  transform: translateX(-50%);
+  animation: dotMove 1.5s infinite 0.5s;
+}
+
+.dot-3 {
+  right: 10%;
+  animation: dotMove 1.5s infinite 1s;
+}
+
+@keyframes dotMove {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

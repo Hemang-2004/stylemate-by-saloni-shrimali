@@ -59,16 +59,20 @@ export function TopNav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-[#F5F5DC]/95 backdrop-blur-sm shadow-md" : "bg-transparent"
-      }`}
-    >
+  className={`fixed top-0 left-0 right-0 z-50 bg-[#EFD8BE] transition-all duration-300 ${
+    isScrolled ? "bg-[#EFD8BE]/70 backdrop-blur-md shadow-md" : "bg-[#EFD8BE]"
+  }`}
+>
+
+
+
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-[#2F4F4F]">StyleMate</span>
-          </Link>
+      <div className="flex items-center justify-between h-16">
+  {/* Logo */}
+  <Link href="/" className="flex items-center space-x-2">
+    <img src="/bo.png" alt="Logo" className="h-14 w-15" /> {/* Replace with actual logo path */}
+    <span className="text-2xl font-bold text-[#2F4F4F]">StyleMate</span>
+  </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-10">
@@ -93,7 +97,7 @@ export function TopNav() {
                 <Button variant="ghost" className="rounded-full p-0 h-10 w-10">
                   <Avatar>
                     <AvatarImage src="/placeholder.svg?height=40&width=40" alt="User" />
-                    <AvatarFallback className="bg-[#9eb3a6] text-white">SM</AvatarFallback>
+                    <AvatarFallback className="bg-[#9eb3a6] text-white">SS</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>

@@ -1,11 +1,10 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import { TopNav } from "../../../components/top-nav"
 import { Footer } from "../../../components/footer"
 import { Button } from "../../../components/ui/button"
-import { Card, CardContent } from "../../../components/ui/card"
 import { Tabs, TabsList, TabsTrigger } from "../../../components/ui/tabs"
 import {
   Heart,
@@ -20,23 +19,37 @@ import {
   ChevronRight,
 } from "lucide-react"
 
-export default function ReelsPage() {
-  const [activeTab, setActiveTab] = useState("trending")
-  const [currentReelIndex, setCurrentReelIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+// Featured items that will be randomly shown with reels
+const featuredItems = [
+  { id: 1, name: "White Button-Up Shirt", image: "/placeholder.svg?height=80&width=80&text=Item 1" },
+  { id: 2, name: "Gold Hoop Earrings", image: "/placeholder.svg?height=80&width=80&text=Item 2" },
+  { id: 3, name: "Beige Trench Coat", image: "/placeholder.svg?height=80&width=80&text=Item 3" },
+  { id: 4, name: "Black Slim-Fit Jeans", image: "/placeholder.svg?height=80&width=80&text=Item 4" },
+  { id: 5, name: "Red Silk Blouse", image: "/placeholder.svg?height=80&width=80&text=Item 5" },
+  { id: 6, name: "Navy Blue Blazer", image: "/placeholder.svg?height=80&width=80&text=Item 6" },
+  { id: 7, name: "Khaki Chinos", image: "/placeholder.svg?height=80&width=80&text=Item 7" },
+]
 
+// Get 2 random items from the featured items array
+const getRandomItems = () => {
+  const shuffled = [...featuredItems].sort(() => 0.5 - Math.random())
+  return shuffled.slice(0, 2)
+}
 
-  const reels = [
+// Reel data for each category
+const reelCategories = {
+  trending: [
     {
       id: 1,
       username: "fashionista_emma",
       title: "5 Ways to Style a White Shirt",
       likes: 1243,
       comments: 89,
-      thumbnail: "/image.png",
-      videoUrl: "/placeholder.mp4",
+      thumbnail: "/placeholder.svg?height=200&width=120&text=White Shirt",
+      videoUrl: "/vid1.mp4",
+      description:
+        "Discover how to create multiple stylish looks with items you already own. Perfect for refreshing your wardrobe without shopping!",
+      featuredItems: getRandomItems(),
     },
     {
       id: 2,
@@ -44,8 +57,11 @@ export default function ReelsPage() {
       title: "Capsule Wardrobe Essentials",
       likes: 987,
       comments: 56,
-      thumbnail: "/placeholder.svg?height=600&width=400&text=Reel 2",
-      videoUrl: "/placeholder.mp4",
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Capsule",
+      videoUrl: "/vid2.mp4",
+      description:
+        "Build a versatile wardrobe with these timeless pieces that mix and match perfectly for endless outfit combinations.",
+      featuredItems: getRandomItems(),
     },
     {
       id: 3,
@@ -53,8 +69,11 @@ export default function ReelsPage() {
       title: "Summer to Fall Transition Outfits",
       likes: 2156,
       comments: 124,
-      thumbnail: "/placeholder.svg?height=600&width=400&text=Reel 3",
-      videoUrl: "/placeholder.mp4",
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Transition",
+      videoUrl: "/vid3.mp4",
+      description:
+        "Learn how to transition your summer favorites into fall with simple layering techniques and accessories.",
+      featuredItems: getRandomItems(),
     },
     {
       id: 4,
@@ -62,22 +81,159 @@ export default function ReelsPage() {
       title: "Thrift Store Transformation",
       likes: 1876,
       comments: 103,
-      thumbnail: "/placeholder.svg?height=600&width=400&text=Reel 4",
-      videoUrl: "/placeholder.mp4",
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Thrift",
+      videoUrl: "/vid1.mp4", // Using vid1 as fallback
+      description:
+        "Watch me transform thrifted finds into trendy, unique pieces that look designer but cost a fraction of the price.",
+      featuredItems: getRandomItems(),
     },
-  ]
+  ],
+  following: [
+    {
+      id: 5,
+      username: "sustainable_sarah",
+      title: "Eco-Friendly Fashion Hacks",
+      likes: 1532,
+      comments: 97,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Eco",
+      videoUrl: "/vid2.mp4", // Using vid2 as fallback
+      description:
+        "Simple ways to make your wardrobe more sustainable while staying on trend with these eco-conscious fashion tips.",
+      featuredItems: getRandomItems(),
+    },
+    {
+      id: 6,
+      username: "color_coordinator",
+      title: "Color Theory for Your Closet",
+      likes: 1089,
+      comments: 72,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Color",
+      videoUrl: "/vid3.mp4", // Using vid3 as fallback
+      description:
+        "Understanding color theory will revolutionize how you put outfits together. Learn the basics in this quick guide!",
+      featuredItems: getRandomItems(),
+    },
+    {
+      id: 7,
+      username: "accessory_queen",
+      title: "Elevate Any Outfit with Accessories",
+      likes: 2345,
+      comments: 156,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Accessories",
+      videoUrl: "/vid1.mp4", // Using vid1 as fallback
+      description:
+        "The right accessories can transform even the simplest outfit. Check out these styling tricks to elevate your look.",
+      featuredItems: getRandomItems(),
+    },
+    {
+      id: 8,
+      username: "pattern_pro",
+      title: "Mixing Patterns Like a Pro",
+      likes: 1765,
+      comments: 118,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Patterns",
+      videoUrl: "/vid2.mp4", // Using vid2 as fallback
+      description:
+        "Don't be afraid to mix patterns! Learn the rules for combining different prints for a bold, fashion-forward look.",
+      featuredItems: getRandomItems(),
+    },
+  ],
+  saved: [
+    {
+      id: 9,
+      username: "office_style",
+      title: "Work Wardrobe Essentials",
+      likes: 1876,
+      comments: 134,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Work",
+      videoUrl: "/vid3.mp4", // Using vid3 as fallback
+      description:
+        "Build a professional wardrobe that's both stylish and appropriate with these essential pieces and outfit formulas.",
+      featuredItems: getRandomItems(),
+    },
+    {
+      id: 10,
+      username: "body_positive_fashion",
+      title: "Dress for Your Body Type",
+      likes: 2198,
+      comments: 187,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Body Type",
+      videoUrl: "/vid1.mp4", // Using vid1 as fallback
+      description:
+        "Learn how to highlight your best features and create balanced proportions with these body-positive styling tips.",
+      featuredItems: getRandomItems(),
+    },
+    {
+      id: 11,
+      username: "budget_stylist",
+      title: "Luxury Looks on a Budget",
+      likes: 3021,
+      comments: 215,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Budget",
+      videoUrl: "/vid2.mp4", // Using vid2 as fallback
+      description:
+        "You don't need to spend a fortune to look expensive. These budget-friendly styling tricks will elevate your entire wardrobe.",
+      featuredItems: getRandomItems(),
+    },
+    {
+      id: 12,
+      username: "seasonal_stylist",
+      title: "Winter Layering Guide",
+      likes: 1654,
+      comments: 92,
+      thumbnail: "/placeholder.svg?height=200&width=120&text=Winter",
+      videoUrl: "/vid3.mp4", // Using vid3 as fallback
+      description:
+        "Stay warm without sacrificing style with these clever layering techniques that work for any winter occasion.",
+      featuredItems: getRandomItems(),
+    },
+  ],
+}
+
+export default function ReelsPage() {
+  const [activeTab, setActiveTab] = useState("trending")
+  const [currentReelIndex, setCurrentReelIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(true) // Default to muted
+  const [isLoading, setIsLoading] = useState(true)
+  const [videoError, setVideoError] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  // Get the current category's reels
+  const currentCategoryReels = reelCategories[activeTab as keyof typeof reelCategories]
+  const currentReel = currentCategoryReels[currentReelIndex]
+
+  // Reset state when changing tabs or reels
+  useEffect(() => {
+    setCurrentReelIndex(0)
+    setIsPlaying(false)
+    setIsLoading(true)
+    setVideoError(false)
+  }, [activeTab])
+
+  // Reset loading state when changing reels
+  useEffect(() => {
+    setIsLoading(true)
+    setVideoError(false)
+
+    // Auto-play when video is loaded
+    if (videoRef.current) {
+      videoRef.current.load()
+    }
+  }, [currentReelIndex, activeTab])
 
   const handlePlayPause = () => {
     if (videoRef.current) {
       if (isPlaying) {
-        videoRef.current.pause();
+        videoRef.current.pause()
       } else {
-        videoRef.current.play();
+        videoRef.current.play().catch((err) => {
+          console.error("Error playing video:", err)
+          setVideoError(true)
+        })
       }
-      setIsPlaying(!isPlaying);
     }
-  };
-  
+  }
 
   const handleMuteToggle = () => {
     if (videoRef.current) {
@@ -87,120 +243,156 @@ export default function ReelsPage() {
   }
 
   const handlePrevReel = () => {
-    setCurrentReelIndex((prev) => (prev === 0 ? reels.length - 1 : prev - 1))
-    setIsPlaying(false)
+    setCurrentReelIndex((prev) => (prev === 0 ? currentCategoryReels.length - 1 : prev - 1))
   }
 
   const handleNextReel = () => {
-    setCurrentReelIndex((prev) => (prev === reels.length - 1 ? 0 : prev + 1))
-    setIsPlaying(false)
+    setCurrentReelIndex((prev) => (prev === currentCategoryReels.length - 1 ? 0 : prev + 1))
   }
 
-  const currentReel = reels[currentReelIndex]
+  const handleVideoLoaded = () => {
+    setIsLoading(false)
+    // Auto-play when video is loaded
+    if (videoRef.current) {
+      videoRef.current.play().catch((err) => {
+        console.error("Error auto-playing video:", err)
+        setVideoError(true)
+      })
+    }
+  }
+
+  const handleVideoError = () => {
+    setVideoError(true)
+    setIsLoading(false)
+  }
 
   return (
-    <div className="min-h-screen bg-[#F5F5DC] flex flex-col">
+    <div className="min-h-screen bg-[#F5F5DC]">
       <TopNav />
 
-      <main className="flex-grow container mx-auto px-4 py-8 mt-16">
+      <main className="container mx-auto px-4 py-8 mt-16">
         <h1 className="text-4xl font-bold text-[#2F4F4F] mb-8 text-center">Style Reels</h1>
 
-        <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full mb-8">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
-            <TabsTrigger value="trending">Trending</TabsTrigger>
-            <TabsTrigger value="following">Following</TabsTrigger>
-            <TabsTrigger value="saved">Saved</TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
+          {/* Left Panel - Reel Categories and Thumbnails */}
+          <div className="lg:w-1/3">
+            <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="trending">Trending</TabsTrigger>
+                <TabsTrigger value="following">Following</TabsTrigger>
+                <TabsTrigger value="saved">Saved</TabsTrigger>
+              </TabsList>
+            </Tabs>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Panel - Reel Thumbnails */}
-          <div className="lg:col-span-1 order-2 lg:order-1">
-            <Card className="bg-white shadow-md">
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold text-[#2F4F4F] mb-4">
-                  {activeTab === "trending"
-                    ? "Trending Reels"
-                    : activeTab === "following"
-                      ? "From People You Follow"
-                      : "Saved Reels"}
-                </h2>
+            <h2 className="text-xl font-semibold text-[#2F4F4F] mb-4">
+              {activeTab === "trending"
+                ? "Trending Reels"
+                : activeTab === "following"
+                  ? "From People You Follow"
+                  : "Saved Reels"}
+            </h2>
 
-                <div className="grid grid-cols-2 gap-4">
-                  {reels.map((reel, index) => (
-                    <div
-                      key={reel.id}
-                      className={`cursor-pointer rounded-lg overflow-hidden relative ${
-                        currentReelIndex === index ? "ring-2 ring-[#4A7A6F]" : ""
-                      }`}
-                      onClick={() => {
-                        setCurrentReelIndex(index)
-                        setIsPlaying(false)
-                      }}
-                    >
-                      <div className="relative h-40">
-                        <Image
-                          src={reel.thumbnail || "/placeholder.svg"}
-                          alt={reel.title}
-                          fill
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                          <Play className="h-8 w-8 text-white opacity-80" />
-                        </div>
-                      </div>
-                      <div className="p-2 bg-white">
-                        <p className="text-xs font-medium text-[#4A7A6F] mb-1">@{reel.username}</p>
-                        <p className="text-sm font-medium text-[#2F4F4F] truncate">{reel.title}</p>
-                      </div>
+            <div className="grid grid-cols-2 gap-3">
+              {currentCategoryReels.map((reel, index) => (
+                <div
+                  key={reel.id}
+                  className={`cursor-pointer rounded-lg overflow-hidden relative ${
+                    currentReelIndex === index ? "ring-2 ring-[#4A7A6F]" : ""
+                  }`}
+                  onClick={() => {
+                    setCurrentReelIndex(index)
+                  }}
+                >
+                  <div className="relative h-32">
+                    <Image src={reel.thumbnail || "/placeholder.svg"} alt={reel.title} fill className="object-cover" />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <Play className="h-8 w-8 text-white opacity-80" />
                     </div>
-                  ))}
+                  </div>
+                  <div className="p-2 bg-white">
+                    <p className="text-xs font-medium text-[#4A7A6F] truncate">@{reel.username}</p>
+                    <p className="text-sm font-medium text-[#2F4F4F] truncate">{reel.title}</p>
+                  </div>
                 </div>
+              ))}
+            </div>
 
-                <div className="mt-6 text-center">
-                  <Button className="bg-[#4A7A6F] hover:bg-[#2F4F4F]">Browse More Reels</Button>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="mt-4 text-center">
+              <Button className="bg-[#4A7A6F] hover:bg-[#2F4F4F]">Browse More Reels</Button>
+            </div>
           </div>
 
-          {/* Center Panel - Reel Player */}
-          <div className="lg:col-span-2 order-1 lg:order-2">
-            <Card className="bg-white shadow-md overflow-hidden">
-              <div className="relative aspect-[9/16] max-h-[70vh] bg-black">
-                {/* Video Player */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                <Image
-  src={currentReel.thumbnail || "/image.png"}
-  alt={currentReel.title}
-  width={400} // Set explicit width
-  height={600} // Set explicit height
-  className="object-cover"
-/>
-
-                  <video
-                    ref={videoRef}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    poster={currentReel.thumbnail}
-                    muted={isMuted}
-                    onPlay={() => setIsPlaying(true)}
-                    onPause={() => setIsPlaying(false)}
-                    onEnded={() => handleNextReel()}
-                  >
-                    <source src={currentReel.videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+          {/* Right Panel - Phone-style Reel Player */}
+          <div className="lg:w-2/3">
+            <div className="relative mx-auto" style={{ maxWidth: "360px" }}>
+              {/* Phone Frame */}
+              <div
+                className="relative rounded-[36px] overflow-hidden bg-black border-8 border-black shadow-xl"
+                style={{ height: "680px" }}
+              >
+                {/* Status Bar */}
+                <div className="absolute top-0 left-0 right-0 z-20 flex justify-between items-center px-4 py-2 bg-black text-white text-xs">
+                  <span>9:41</span>
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/4 h-6 bg-black rounded-b-xl"></div>
+                  <div className="flex items-center gap-1">
+                    <span>5G</span>
+                    <span>100%</span>
+                  </div>
                 </div>
 
-                {/* Overlay Controls */}
-                <div className="absolute inset-0 flex flex-col justify-between p-4">
-                  {/* Top Info */}
-                  <div className="flex items-center">
-                    <div className="bg-black/50 px-3 py-1 rounded-full text-white text-sm">@{currentReel.username}</div>
+                {/* Reel Content */}
+                <div className="relative h-full bg-black">
+                  {/* Video Player */}
+                  <div className="absolute inset-0 z-10">
+                    {isLoading && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black z-20">
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+                      </div>
+                    )}
+
+                    {videoError && (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-20 p-4">
+                        <p className="text-white text-center mb-4">Unable to load video. Please try again.</p>
+                        <Button
+                          className="bg-[#4A7A6F] hover:bg-[#2F4F4F]"
+                          onClick={() => {
+                            setVideoError(false)
+                            setIsLoading(true)
+                            if (videoRef.current) {
+                              videoRef.current.load()
+                            }
+                          }}
+                        >
+                          Retry
+                        </Button>
+                      </div>
+                    )}
+
+                    <video
+                      ref={videoRef}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      poster={currentReel.thumbnail}
+                      muted={isMuted}
+                      playsInline
+                      preload="auto"
+                      onLoadedData={handleVideoLoaded}
+                      onError={handleVideoError}
+                      onPlay={() => setIsPlaying(true)}
+                      onPause={() => setIsPlaying(false)}
+                      onEnded={handleNextReel}
+                    >
+                      <source src={currentReel.videoUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+
+                  {/* Username */}
+                  <div className="absolute top-8 left-4 z-20 bg-black/50 px-3 py-1 rounded-full">
+                    <span className="text-white text-sm">@{currentReel.username}</span>
                   </div>
 
                   {/* Side Actions */}
-                  <div className="absolute right-4 bottom-20 flex flex-col space-y-6">
+                  <div className="absolute right-4 bottom-32 flex flex-col space-y-6 z-20">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -234,7 +426,7 @@ export default function ReelsPage() {
                   </div>
 
                   {/* Bottom Controls */}
-                  <div className="flex items-center justify-between">
+                  <div className="absolute bottom-20 left-0 right-0 flex items-center justify-between px-4 z-20">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -262,45 +454,47 @@ export default function ReelsPage() {
                       <ChevronRight className="h-6 w-6" />
                     </Button>
                   </div>
-                </div>
 
-                {/* Mute Button */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute bottom-4 left-4 rounded-full bg-black/30 text-white hover:bg-black/50"
-                  onClick={handleMuteToggle}
-                >
-                  {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-                </Button>
-              </div>
+                  {/* Mute Button */}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute bottom-20 left-4 rounded-full bg-black/30 text-white hover:bg-black/50 z-20"
+                    onClick={handleMuteToggle}
+                  >
+                    {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                  </Button>
 
-              <CardContent className="p-4">
-                <h3 className="text-lg font-semibold text-[#2F4F4F]">{currentReel.title}</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Discover how to create multiple stylish looks with items you already own. Perfect for refreshing your
-                  wardrobe without shopping!
-                </p>
+                  {/* Reel Info */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pt-12 pb-4 px-4 z-20">
+                    <h3 className="text-lg font-semibold text-white">{currentReel.title}</h3>
+                    <p className="text-sm text-white/80 mt-1 line-clamp-2">{currentReel.description}</p>
 
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <h4 className="text-sm font-medium text-[#2F4F4F] mb-2">Featured Items</h4>
-                  <div className="flex space-x-3 overflow-x-auto pb-2">
-                    {[1, 2, 3, 4].map((item) => (
-                      <div key={item} className="flex-shrink-0 w-16">
-                        <div className="relative h-16 w-16 rounded-md overflow-hidden">
-                          <Image
-                            src={`/placeholder.svg?height=100&width=100&text=Item ${item}`}
-                            alt={`Featured item ${item}`}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
+                    {/* Featured Items */}
+                    <div className="mt-3">
+                      <h4 className="text-xs font-medium text-white/90 mb-2">Featured Items</h4>
+                      <div className="flex space-x-3">
+                        {currentReel.featuredItems.map((item) => (
+                          <div key={item.id} className="flex-shrink-0">
+                            <div className="relative h-12 w-12 rounded-md overflow-hidden border border-white/30">
+                              <Image
+                                src={item.image || "/placeholder.svg"}
+                                alt={item.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* Home Button/Indicator */}
+              <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1/3 h-1 bg-gray-500 rounded-full"></div>
+            </div>
           </div>
         </div>
       </main>

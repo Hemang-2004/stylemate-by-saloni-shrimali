@@ -16,6 +16,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/page.js"
     ],
+    "/dashboard/virtual-tryouts/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/virtual-tryouts/page.js"
+    ],
     "/dashboard/ask-me-anything/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -25,11 +30,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/reels/page.js"
-    ],
-    "/dashboard/virtual-tryouts/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/virtual-tryouts/page.js"
     ],
     "/dashboard/anything-new/page": [
       "static/chunks/webpack.js",

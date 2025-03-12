@@ -17,7 +17,7 @@ export default function AnythingNewPage() {
       id: 1,
       title: "Oversized Blazers",
       description: "The perfect balance of professional and casual, oversized blazers are dominating street style.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/over.jpeg?height=300&width=400",
       tags: ["Workwear", "Casual", "Trending"],
     },  
     {
@@ -25,14 +25,14 @@ export default function AnythingNewPage() {
       title: "Platform Loafers",
       description:
         "Combining comfort with style, platform loafers are the footwear choice for fashion-forward individuals.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/loafer.jpeg?height=300&width=400",
       tags: ["Footwear", "Retro", "Comfort"],
     },
     {
       id: 3,
       title: "Statement Collars",
       description: "From peter pan to exaggerated pointed collars, this detail is making waves in fashion circles.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/collar.jpeg?height=300&width=400",
       tags: ["Details", "Feminine", "Vintage"],
     },
   ]
@@ -43,21 +43,21 @@ export default function AnythingNewPage() {
       title: "Paris Fashion Week",
       date: "March 15-22, 2025",
       location: "Paris, France",
-      image: "/placeholder.svg?height=200&width=400",
+      image: "/paris fashion week.jpeg?height=200&width=400",
     },
     {
       id: 2,
       title: "Sustainable Fashion Summit",
       date: "April 5-7, 2025",
       location: "New York, USA",
-      image: "/placeholder.svg?height=200&width=400",
+      image: "/sustainable fashion summit.jpeg?height=200&width=400",
     },
     {
       id: 3,
       title: "Vintage Clothing Expo",
       date: "April 18-19, 2025",
       location: "London, UK",
-      image: "/placeholder.svg?height=200&width=400",
+      image: "/vintage clothing expo.jpeg?height=200&width=400",
     },
   ]
 
@@ -67,7 +67,7 @@ export default function AnythingNewPage() {
       brand: "Eco Essentials",
       title: "Spring Collection",
       description: "Sustainable fabrics meet modern silhouettes in this breathtaking spring lineup.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/spring collection.jpeg?height=300&width=400",
       rating: 4.8,
     },
     {
@@ -75,7 +75,7 @@ export default function AnythingNewPage() {
       brand: "Urban Minimalist",
       title: "Capsule Wardrobe Basics",
       description: "Timeless pieces designed to mix and match for endless outfit possibilities.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/capsule wardrobe basic.jpeg?height=300&width=400",
       rating: 4.5,
     },
     {
@@ -83,13 +83,15 @@ export default function AnythingNewPage() {
       brand: "Color Theory",
       title: "Vibrant Essentials",
       description: "Bold colors and patterns to brighten your wardrobe and mood.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/vibrant essentials.jpeg?height=300&width=400",
       rating: 4.7,
     },
   ]
 
   return (
-    <div className="min-h-screen bg-[#F5F5DC]">
+    // <div className="min-h-screen bg-[#F5F5DC]">
+    <div className="min-h-screen bg-gradient-to-br from-[#EFE6DC] via-[#F5E1C8] to-[#EADBC8]">
+
       <TopNav />
 
       <main className="container mx-auto px-4 py-8 pt-24">
