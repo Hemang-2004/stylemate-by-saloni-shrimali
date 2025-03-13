@@ -78,26 +78,28 @@ export default function AskMeAnythingPage() {
 
       // Add the new user message
       // Construct userContent ensuring each part has a text property
-      const userContent: { text?: string; inline_data?: { mime_type: string; data: string } }[] = []
+      const userContent: { text: string; inline_data?: { mime_type: string; data: string } }[] = []
 
+      // Ensure message is always a string
+      const messageText = message.trim() ? message : "User provided an input."
+      
       // If there's a message, add it as text
-      if (message.trim()) {
-        userContent.push({ text: message })
-      }
-
-      // If there's an image, add it with a descriptive text
+      userContent.push({ text: messageText })
+      
+      // If there's an image, add it with a description
       if (selectedImage) {
         userContent.push({
           text: "User provided an image for analysis.",
           inline_data: { mime_type: "image/jpeg", data: selectedImage.split(",")[1] },
         })
       }
-
-      // Add the new user message to the conversation history
+      
+      // Add to conversation history
       conversationHistory.push({
         role: "user",
         parts: userContent,
       })
+      
 
       // Prepare system prompt to guide response formatting
       const systemPrompt = {

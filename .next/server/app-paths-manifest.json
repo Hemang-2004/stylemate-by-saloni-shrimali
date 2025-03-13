@@ -1,10 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/ask-me-anything/page": "app/dashboard/ask-me-anything/page.js",
-  "/dashboard/anything-new/page": "app/dashboard/anything-new/page.js",
   "/dashboard/reels/page": "app/dashboard/reels/page.js",
-  "/page": "app/page.js",
+  "/dashboard/anything-new/page": "app/dashboard/anything-new/page.js",
   "/dashboard/virtual-tryouts/page": "app/dashboard/virtual-tryouts/page.js"
 }
