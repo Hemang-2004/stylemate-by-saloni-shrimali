@@ -1,7 +1,0 @@
-{
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/ask-me-anything/page": "app/dashboard/ask-me-anything/page.js",
-  "/dashboard/reels/page": "app/dashboard/reels/page.js",
-  "/dashboard/anything-new/page": "app/dashboard/anything-new/page.js",
-  "/dashboard/virtual-tryouts/page": "app/dashboard/virtual-tryouts/page.js"
-}
